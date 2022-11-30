@@ -12,9 +12,11 @@ function printShoppingBasket(shoppingBasket: ShoppingBasket) {
   console.log("Output:");
   shoppingBasket
     .getItems()
-    .map((i) => console.log(`${i.quantity} ${i.description}: ${i.getTotal()}`));
-  console.log("Sales Taxes:", shoppingBasket.getSalesTaxes());
-  console.log("Total:", shoppingBasket.getTotal());
+    .map((i) =>
+      console.log(`${i.quantity} ${i.description}: ${i.getTotal().toFixed(2)}`)
+    );
+  console.log("Sales Taxes:", shoppingBasket.getSalesTaxes().toFixed(2));
+  console.log("Total:", shoppingBasket.getTotal().toFixed(2));
   console.log("----------------------------------");
   console.log("\n");
   return;

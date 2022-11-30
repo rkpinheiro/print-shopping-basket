@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ShoppingBasket = exports.BasketItem = void 0;
+var utils_1 = require("./utils");
 var BasketItem = /** @class */ (function () {
     function BasketItem(_a) {
         var quantity = _a.quantity, description = _a.description, price = _a.price;
         this.quantity = quantity;
         this.description = description;
-        this.priceIncludingTax = price * (1 + this.getTax());
-        this.tax = price * this.getTax();
         this.price = price;
+        this.priceIncludingTax = this.price * (1 + this.getTax());
     }
     BasketItem.prototype.toString = function () {
         return "".concat(this.quantity, " ").concat(this.description, " at ").concat(this.price);
@@ -26,10 +26,10 @@ var BasketItem = /** @class */ (function () {
         return total / 100;
     };
     BasketItem.prototype.getTotal = function () {
-        return this.quantity * this.priceIncludingTax;
+        return (0, utils_1.round)(this.quantity * this.priceIncludingTax);
     };
     BasketItem.prototype.getSalesTaxes = function () {
-        return this.quantity * this.tax;
+        return this.quantity * this.price * this.getTax();
     };
     return BasketItem;
 }());
@@ -46,7 +46,7 @@ var ShoppingBasket = /** @class */ (function () {
         this.items.forEach(function (i) {
             total = total + i.getSalesTaxes();
         });
-        return total;
+        return (0, utils_1.round)(total);
     };
     ShoppingBasket.prototype.getTotal = function () {
         var total = 0;

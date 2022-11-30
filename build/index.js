@@ -8,9 +8,11 @@ function printShoppingBasket(shoppingBasket) {
     console.log("Output:");
     shoppingBasket
         .getItems()
-        .map(function (i) { return console.log("".concat(i.quantity, " ").concat(i.description, ": ").concat(i.getTotal())); });
-    console.log("Sales Taxes:", shoppingBasket.getSalesTaxes());
-    console.log("Total:", shoppingBasket.getTotal());
+        .map(function (i) {
+        return console.log("".concat(i.quantity, " ").concat(i.description, ": ").concat(i.getTotal().toFixed(2)));
+    });
+    console.log("Sales Taxes:", shoppingBasket.getSalesTaxes().toFixed(2));
+    console.log("Total:", shoppingBasket.getTotal().toFixed(2));
     console.log("----------------------------------");
     console.log("\n");
     return;

@@ -1,3 +1,5 @@
+import { round } from "./utils";
+
 export interface BasketInput {
   quantity: number;
   description: string;
@@ -9,14 +11,12 @@ export class BasketItem {
   description: string;
   priceIncludingTax: number; // TODO: create a Price type
   price: number;
-  tax: number;
 
   constructor({ quantity, description, price }: BasketInput) {
     this.quantity = quantity;
     this.description = description;
-    this.priceIncludingTax = price * (1 + this.getTax());
-    this.tax = price * this.getTax();
     this.price = price;
+    this.priceIncludingTax = this.price * (1 + this.getTax());
   }
 
   toString() {
@@ -42,11 +42,11 @@ export class BasketItem {
   }
 
   getTotal() {
-    return this.quantity * this.priceIncludingTax;
+    return round(this.quantity * this.priceIncludingTax);
   }
 
   getSalesTaxes() {
-    return this.quantity * this.tax;
+    return this.quantity * this.price * this.getTax();
   }
 }
 
@@ -66,7 +66,7 @@ export class ShoppingBasket {
     this.items.forEach((i) => {
       total = total + i.getSalesTaxes();
     });
-    return total;
+    return round(total);
   }
 
   getTotal() {
