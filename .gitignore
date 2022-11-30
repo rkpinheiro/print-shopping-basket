@@ -1,2 +1,4 @@
+# Editor config
+.vscode/
 # Dependency directories
 node_modules/
